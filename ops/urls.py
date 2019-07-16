@@ -16,10 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from api.views import LoginAuthView,LoginShowView,LoginView
+from assets.views import CmdbView,CmdbDeleteView,CollectHostInfo,AssetsView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/login_auth/', LoginAuthView),
     url(r'^api/login/', LoginShowView),
     url(r'^api/auth/', LoginView),
+    url(r'^api/v1/cmdb$', CmdbView.as_view(), name='cmdb_list'),
+    url(r'^api/v1/cmdb/delete/(?P<pk>[0-9]+)/$', CmdbDeleteView),
+    url(r'^api/v1/cmdb/collect', CollectHostInfo.as_view()),
+
+    url(r'^assets/(?P<year>[0-9]{4})/$', AssetsView, name='book_year')
 ]
